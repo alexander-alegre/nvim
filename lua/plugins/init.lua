@@ -12,4 +12,23 @@ return {
       require "configs.lspconfig"
     end,
   },
+  {
+    "nvimtools/none-ls.nvim",
+    event = "VeryLazy",
+    opts = function()
+      return require "plugins.null-ls"
+    end,
+  },
+  {
+    "williamboman/mason.nvim",
+    opts = {
+      ensure_installed = {
+        "eslint-lsp",
+        "prettier",
+        "tailwindcss-language-server",
+        "typescript-language-server",
+        "prismals",
+      },
+    },
+  },
 }
