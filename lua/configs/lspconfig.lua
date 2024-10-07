@@ -24,28 +24,32 @@ end
 -- }
 
 -- configure html for templ
-lspconfig.html.setup({
-  on_attach = on_attach,
+lspconfig.html.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
   filetypes = { "html", "templ" },
-})
+}
 
 -- configure htmx for templ
-lspconfig.htmx.setup({
-  on_attach = on_attach,
+lspconfig.htmx.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
   filetypes = { "html", "templ" },
-})
+}
 
 -- configure css server
-lspconfig["cssls"].setup({
+lspconfig["cssls"].setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
-  on_attach = on_attach,
-})
+}
 
 -- configure tailwindcss server
-lspconfig.tailwindcss.setup({
-  on_attach = on_attach,
+lspconfig.tailwindcss.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
   filetypes = { "templ", "astro", "javascript", "typescript", "react" },
   settings = {
@@ -55,11 +59,11 @@ lspconfig.tailwindcss.setup({
       },
     },
   },
-})
+}
 
 -- configure emmet language server
-lspconfig["emmet_ls"].setup({
+lspconfig["emmet_ls"].setup {
   capabilities = nvlsp.capabilities,
-  on_attach = on_attach,
+  on_attach = nvlsp.on_attach,
   filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "templ" },
-})
+}
