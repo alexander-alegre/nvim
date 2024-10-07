@@ -51,7 +51,7 @@ lspconfig.tailwindcss.setup {
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
-  filetypes = { "templ", "astro", "javascript", "typescript", "react" },
+  filetypes = { "templ", "astro", "javascript", "typescript", "react", "typescriptreact", "javascriptreact" },
   settings = {
     tailwindCSS = {
       includeLanguages = {
