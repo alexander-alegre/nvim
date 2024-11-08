@@ -62,11 +62,37 @@ lspconfig["gopls"].setup {
   filetypes = { "go", "gomod", "gowork", "gotmpl" },
   settings = {
     gopls = {
+      staticcheck = true,
       completeUnimported = true,
-      usePlacehodlers = true,
+      usePlaceholders = true,
       analyses = {
         unusedparams = true,
+        fieldalignment = false,
+        nilness = true,
+        unusedwrite = true,
+        useany = true,
       },
+      codelenses = {
+        gc_details = false,
+        generate = true,
+        regenerate_cgo = true,
+        run_govulncheck = true,
+        test = true,
+        tidy = true,
+        upgrade_dependency = true,
+        vendor = true,
+      },
+      experimentalPostfixCompletions = true,
+      hints = {
+        assignVariableTypes = true,
+        compositeLiteralFields = true,
+        compositeLiteralTypes = true,
+        constantValues = true,
+        functionTypeParameters = true,
+        parameterNames = true,
+        rangeVariableTypes = true,
+      },
+      semanticTokens = true,
     },
   },
 }
