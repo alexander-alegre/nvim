@@ -31,4 +31,11 @@ return {
       },
     },
   },
+  {
+    "joerdav/templ.vim",
+    event = "VeryLazy",
+    config = function()
+      -- todo
+    end,
+  },
 }
