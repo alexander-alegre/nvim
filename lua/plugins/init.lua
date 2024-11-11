@@ -2,7 +2,7 @@ return {
   { "wakatime/vim-wakatime", lazy = false },
   {
     "stevearc/conform.nvim",
-    event = "BufWritePre", -- uncomment for format on save
+    event = "BufWritePre",
     opts = require "configs.conform",
   },
 
@@ -28,6 +28,7 @@ return {
         "prettier",
         "tailwindcss-language-server",
         "typescript-language-server",
+        "javascript-language-server",
         "prismals",
       },
     },
@@ -110,4 +111,16 @@ return {
       end
     end,
   },
+  -- copilot
+  -- {
+  --   "zbirenbaum/copilot.lua",
+  --   cmd = "Copilot",
+  --   build = ":Copilot auth",
+  --   opts = {
+  --     filetypes = {
+  --       markdown = true,
+  --       help = true,
+  --     },
+  --   },
+  -- },
 }
