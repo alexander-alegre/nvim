@@ -3,6 +3,10 @@ local options = {
     lua = { "stylua" },
     css = { "eslint" },
     html = { "eslint" },
+    js = { "eslint" },
+    ts = { "eslint" },
+    tsx = { "eslint" },
+    jsx = { "eslint" },
   },
 
   format_on_save = {

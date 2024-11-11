@@ -81,6 +81,10 @@ return {
     {
       "theHamsta/nvim-dap-virtual-text",
       opts = {},
+      -- stylua: ignore
+      keys = {
+        vim.keymap.set('n', '<Leader>db', function() require('dap').toggle_breakpoint() end),
+      },
     },
   },
   {
