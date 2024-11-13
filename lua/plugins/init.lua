@@ -38,7 +38,7 @@ return {
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
-    dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
+    dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap", "leoluz/nvim-dap-go" },
     config = function()
       require("mason-nvim-dap").setup {
         automatic_installation = true,
@@ -145,6 +145,15 @@ return {
       dap.listeners.before.event_exited["dapui_config"] = function()
         dapui.close()
       end
+
+      -- Install golang specific config
+      require("dap-go").setup {
+        delve = {
+          -- On Windows delve must be run attached or it crashes.
+          -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
+          detached = vim.fn.has "win32" == 0,
+        },
+      }
 
       -- Debugger adapters and configurations
       -- Go (delve)
