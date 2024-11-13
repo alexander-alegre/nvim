@@ -30,8 +30,21 @@ return {
         "typescript-language-server",
         "javascript-language-server",
         "prismals",
+        "delve",
+        "js-debug-adapter",
+        "debugpy",
       },
     },
+  },
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap" },
+    config = function()
+      require("mason-nvim-dap").setup {
+        automatic_installation = true,
+        ensure_installed = { "delve", "js-debug-adapter", "debugpy" },
+      }
+    end,
   },
   {
     "joerdav/templ.vim",
