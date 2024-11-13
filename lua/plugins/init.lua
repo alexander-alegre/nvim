@@ -75,65 +75,66 @@ return {
       { "<leader>dD", "", desc = "+debug", mode = { "n", "v" } },
     },
   },
-  {
-    "rcarriga/nvim-dap-ui",
-    -- virtual text for the debugger
-    {
-      "theHamsta/nvim-dap-virtual-text",
-      opts = {},
-      -- stylua: ignore
-      keys = {
-        vim.keymap.set('n', '<Leader>db', function() require('dap').toggle_breakpoint() end),
-      },
-    },
-  },
+
   {
     "theHamsta/nvim-dap-virtual-text",
-    opts = {},
-  },
-  {
-    "rcarriga/nvim-dap-ui",
-    dependencies = { "nvim-neotest/nvim-nio" },
-  -- stylua: ignore
-  keys = {
-    { "<leader>du", function() require("dapui").toggle({ }) end, desc = "Dap UI" },
-    { "<leader>de", function() require("dapui").eval() end, desc = "Eval", mode = {"n", "v"} },
-  },
     opts = {
-      -- Reasonable debug configurations
-      automatic_installation = true,
-
-      -- Handlers for specific adapters
-      handlers = {},
-
-      -- Ensure debuggers are installed
-      ensure_installed = {
-        "delve", -- Go
-        "js-debug-adapter", -- JavaScript/TypeScript
-        "debugpy", -- Python
+      enabled = true,
+      commented = true,
+    },
+    keys = {
+      {
+        "<leader>db",
+        function()
+          require("dap").toggle_breakpoint()
+        end,
+        desc = "Toggle Breakpoint",
       },
     },
+  },
 
-    -- Dap UI setup
+  {
+    "rcarriga/nvim-dap-ui",
+    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    keys = {
+      {
+        "<leader>du",
+        function()
+          require("dapui").toggle()
+        end,
+        desc = "Dap UI",
+      },
+      {
+        "<leader>de",
+        function()
+          require("dapui").eval()
+        end,
+        desc = "Eval",
+        mode = { "n", "v" },
+      },
+    },
+    opts = {
+      automatic_installation = true,
+      ensure_installed = { "delve", "js-debug-adapter", "debugpy" },
+    },
     config = function(_, opts)
       local dap = require "dap"
       local dapui = require "dapui"
       dapui.setup(opts)
 
-      -- Open/close DAP UI automatically
+      -- Auto-open DAP UI on debug events
       dap.listeners.after.event_initialized["dapui_config"] = function()
-        dapui.open {}
+        dapui.open()
       end
       dap.listeners.before.event_terminated["dapui_config"] = function()
-        dapui.close {}
+        dapui.close()
       end
       dap.listeners.before.event_exited["dapui_config"] = function()
-        dapui.close {}
+        dapui.close()
       end
 
-      -- Language-specific debugger configurations
-
-      -- Golang (delve)
+      -- Debugger adapters and configurations
+      -- Go (delve)
       dap.adapters.delve = {
         type = "server",
         port = "${port}",
@@ -143,19 +144,8 @@ return {
         },
       }
       dap.configurations.go = {
-        {
-          type = "delve",
-          name = "Debug",
-          request = "launch",
-          program = "${file}",
-        },
-        {
-          type = "delve",
-          name = "Debug Test",
-          request = "launch",
-          mode = "test",
-          program = "${file}",
-        },
+        { type = "delve", name = "Debug", request = "launch", program = "${file}" },
+        { type = "delve", name = "Debug Test", request = "launch", mode = "test", program = "${file}" },
       }
 
       -- JavaScript/TypeScript (js-debug-adapter)
@@ -202,12 +192,7 @@ return {
           name = "Launch file",
           program = "${file}",
           pythonPath = function()
-            local venv_path = os.getenv "VIRTUAL_ENV"
-            if venv_path then
-              return venv_path .. "/bin/python"
-            else
-              return "python"
-            end
+            return os.getenv "VIRTUAL_ENV" and os.getenv "VIRTUAL_ENV" .. "/bin/python" or "python"
           end,
         },
       }
