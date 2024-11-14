@@ -39,16 +39,6 @@ return {
     end,
   },
   {
-    "jay-babu/mason-nvim-dap.nvim",
-    dependencies = { "williamboman/mason.nvim", "mfussenegger/nvim-dap", "leoluz/nvim-dap-go" },
-    config = function()
-      require("mason-nvim-dap").setup {
-        automatic_installation = true,
-        ensure_installed = { "delve", "js-debug-adapter", "debugpy" },
-      }
-    end,
-  },
-  {
     "joerdav/templ.vim",
     event = "VeryLazy",
     config = function()
@@ -83,6 +73,22 @@ return {
       { "<leader>lg", "<cmd>LazyGit<cr>", desc = "LazyGit" },
     },
   },
+  -- debugger start
+  {
+    "jay-babu/mason-nvim-dap.nvim",
+    dependencies = {
+      "williamboman/mason.nvim",
+      "mfussenegger/nvim-dap",
+      "leoluz/nvim-dap-go",
+      "mfussenegger/nvim-dap-python",
+    },
+    config = function()
+      require("mason-nvim-dap").setup {
+        automatic_installation = true,
+        ensure_installed = { "delve", "js-debug-adapter", "debugpy" },
+      }
+    end,
+  },
   {
     "mfussenegger/nvim-dap",
     event = "VeryLazy",
@@ -90,7 +96,17 @@ return {
       { "<leader>dD", "", desc = "+debug", mode = { "n", "v" } },
     },
   },
-
+  {
+    "mfussenegger/nvim-dap-python",
+    ft = "python",
+    dependencies = {
+      "mfussenegger/nvim-dap",
+    },
+    config = function()
+      local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+      require("dap-python").setup(path)
+    end,
+  },
   {
     "theHamsta/nvim-dap-virtual-text",
     opts = {
@@ -107,7 +123,6 @@ return {
       },
     },
   },
-
   {
     "rcarriga/nvim-dap-ui",
     dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
@@ -222,6 +237,7 @@ return {
       }
     end,
   },
+  -- debugger end
   {
     "kristijanhusak/vim-dadbod-ui",
     dependencies = {
