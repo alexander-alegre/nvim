@@ -1,23 +1,8 @@
 return {
-  { "wakatime/vim-wakatime", lazy = false },
-  {
-    "stevearc/conform.nvim",
-    event = "BufWritePre",
-    opts = require "configs.conform",
-  },
-
-  -- These are some examples, uncomment them if you want to see them work!
   {
     "neovim/nvim-lspconfig",
     config = function()
       require "configs.lspconfig"
-    end,
-  },
-  {
-    "nvimtools/none-ls.nvim",
-    event = "VeryLazy",
-    opts = function()
-      return require "plugins.null-ls"
     end,
   },
   {
@@ -30,11 +15,28 @@ return {
         "typescript-language-server",
         "javascript-language-server",
         "prismals",
+        "mypy",
+        "ruff",
+        "black",
+        "pyright",
         "delve",
         "js-debug-adapter",
         "debugpy",
       },
     },
+  },
+  { "wakatime/vim-wakatime", lazy = false },
+  {
+    "stevearc/conform.nvim",
+    event = "BufWritePre",
+    opts = require "configs.conform",
+  },
+  {
+    "nvimtools/none-ls.nvim",
+    event = "VeryLazy",
+    opts = function()
+      return require "plugins.null-ls"
+    end,
   },
   {
     "jay-babu/mason-nvim-dap.nvim",

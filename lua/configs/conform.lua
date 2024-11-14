@@ -7,6 +7,7 @@ local options = {
     ts = { "eslint" },
     tsx = { "eslint" },
     jsx = { "eslint" },
+    python = { "black" },
   },
 
   format_on_save = {

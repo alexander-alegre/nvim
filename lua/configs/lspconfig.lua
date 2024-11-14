@@ -4,7 +4,7 @@ require("nvchad.configs.lspconfig").defaults()
 local lspconfig = require "lspconfig"
 
 -- EXAMPLE
-local servers = { "html", "cssls", "gopls", "htmx", "ts_ls", "tailwindcss", "emmet_ls", "templ", "prismals", "pylsp" }
+local servers = { "html", "cssls", "gopls", "htmx", "ts_ls", "tailwindcss", "emmet_ls", "templ", "prismals", "pyright" }
 local nvlsp = require "nvchad.configs.lspconfig"
 
 -- lsps with default config
@@ -37,7 +37,6 @@ lspconfig.tailwindcss.setup {
   on_attach = nvlsp.on_attach,
   on_init = nvlsp.on_init,
   capabilities = nvlsp.capabilities,
-  filetypes = { "templ", "astro", "javascript", "typescript", "react", "typescriptreact", "javascriptreact" },
   settings = {
     tailwindCSS = {
       includeLanguages = {
@@ -122,4 +121,10 @@ lspconfig["gopls"].setup {
       semanticTokens = true,
     },
   },
+}
+
+lspconfig.pyright.setup {
+  on_attach = nvlsp.on_attach,
+  on_init = nvlsp.on_init,
+  capabilities = nvlsp.capabilities,
 }
