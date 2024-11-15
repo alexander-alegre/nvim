@@ -22,6 +22,8 @@ return {
         "delve",
         "js-debug-adapter",
         "debugpy",
+        -- "php-debug-adapter",
+        -- "intelephense",
       },
     },
   },
@@ -36,6 +38,30 @@ return {
     event = "VeryLazy",
     opts = function()
       return require "plugins.null-ls"
+    end,
+  },
+  -- harpoon
+  {
+    "abeldekat/harpoonline",
+    lazy = true,
+    config = function()
+      -- the setup
+    end,
+  },
+  {
+    "ThePrimeagen/harpoon",
+    branch = "harpoon2",
+    event = "VeryLazy",
+    config = function()
+      local harpoon = require "harpoon"
+      harpoon:setup()
+      --
+      vim.keymap.set("n", "<leader>a", function()
+        harpoon:list():add()
+      end, { desc = "Add file to harpoon" })
+      vim.keymap.set("n", "<leader>H", function()
+        harpoon.ui:toggle_quick_menu(harpoon:list())
+      end, { desc = "Toggle harpoon menu" })
     end,
   },
   {
@@ -165,10 +191,25 @@ return {
 
       -- Install golang specific config
       require("dap-go").setup {
+        dap_configurations = {
+          {
+            type = "go",
+            name = "Attach remote",
+            mode = "remote",
+            request = "attach",
+          },
+        },
         delve = {
-          -- On Windows delve must be run attached or it crashes.
-          -- See https://github.com/leoluz/nvim-dap-go/blob/main/README.md#configuring
+          path = "dlv",
+          initialize_timeout_sec = 20,
+          port = "${port}",
+          args = {},
+          build_flags = {},
           detached = vim.fn.has "win32" == 0,
+          cwd = nil,
+        },
+        tests = {
+          verbose = true,
         },
       }
 
@@ -305,4 +346,24 @@ return {
       server_opts_overrides = {},
     },
   },
+  -- PHP
+  -- PHP (Laravel)
+  -- {
+  --   "adalessa/laravel.nvim",
+  --   dependencies = {
+  --     "tpope/vim-dotenv",
+  --     "nvim-telescope/telescope.nvim",
+  --     "MunifTanjim/nui.nvim",
+  --     "kevinhwang91/promise-async",
+  --   },
+  --   cmd = { "Laravel" },
+  --   keys = {
+  --     { "<leader>la", ":Laravel artisan<cr>" },
+  --     { "<leader>lr", ":Laravel routes<cr>" },
+  --     { "<leader>lm", ":Laravel related<cr>" },
+  --   },
+  --   event = { "VeryLazy" },
+  --   opts = {},
+  --   config = true,
+  -- },
 }
