@@ -22,8 +22,6 @@ return {
         "delve",
         "js-debug-adapter",
         "debugpy",
-        -- "php-debug-adapter",
-        -- "intelephense",
       },
     },
   },
