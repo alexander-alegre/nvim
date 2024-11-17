@@ -340,14 +340,6 @@ return {
       }
     end,
   },
-  {
-    "rmagatti/auto-session",
-    lazy = false,
-    opts = {
-      suppressed_dirs = { "~/", "~/code" },
-      -- log_level = 'debug',
-    },
-  },
   -- PHP (Laravel)
   {
     "adalessa/laravel.nvim",
