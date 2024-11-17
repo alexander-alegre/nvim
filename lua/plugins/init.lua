@@ -326,20 +326,6 @@ return {
       require("copilot_cmp").setup()
     end,
   },
-  {
-    "hrsh7th/nvim-cmp",
-    config = function()
-      local cmp = require "cmp"
-      cmp.setup {
-        sources = {
-          { name = "copilot" }, -- Add Copilot as a completion source
-          { name = "nvim_lsp" },
-          { name = "buffer" },
-          { name = "path" },
-        },
-      }
-    end,
-  },
   -- PHP (Laravel)
   {
     "adalessa/laravel.nvim",
