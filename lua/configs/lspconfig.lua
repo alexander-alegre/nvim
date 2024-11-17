@@ -15,6 +15,7 @@ local servers = {
   "templ",
   "prismals",
   "pyright",
+  "intelephense",
 }
 local nvlsp = require "nvchad.configs.lspconfig"
 
@@ -132,10 +133,4 @@ lspconfig["gopls"].setup {
       semanticTokens = true,
     },
   },
-}
-
-lspconfig.pyright.setup {
-  on_attach = nvlsp.on_attach,
-  on_init = nvlsp.on_init,
-  capabilities = nvlsp.capabilities,
 }
