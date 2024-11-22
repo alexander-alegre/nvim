@@ -96,31 +96,21 @@ return {
         dapui.close()
       end
 
-      -- Go-specific DAP configuration
-      require("dap-go").setup {
-        dap_configurations = {
-          {
-            type = "go",
-            name = "Attach Remote",
-            mode = "remote",
-            request = "attach",
-          },
-        },
-        delve = {
-          path = "dlv",
-          initialize_timeout_sec = 20,
-          port = "${port}",
-          args = {},
-          build_flags = {},
-          detached = vim.fn.has "win32" == 0,
-          cwd = nil,
-        },
-        tests = {
-          verbose = true,
-        },
-      }
+      -- Helper to load VSCode launch.json if it exists
+      local function load_vscode_launch()
+        local launch_path = vim.fn.getcwd() .. "/.vscode/launch.json"
+        if vim.fn.filereadable(launch_path) == 1 then
+          require("dap.ext.vscode").load_launchjs(launch_path)
+          print "Loaded .vscode/launch.json"
+        else
+          print ".vscode/launch.json not found. Using default configurations."
+        end
+      end
 
-      -- DAP adapters and configurations
+      -- Automatically load launch.json on startup
+      load_vscode_launch()
+
+      -- Default configurations
 
       -- Go (Delve)
       dap.adapters.delve = {
