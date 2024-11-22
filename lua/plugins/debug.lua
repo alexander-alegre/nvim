@@ -1,4 +1,5 @@
 return {
+  -- Mason integration for managing DAP installations
   {
     "jay-babu/mason-nvim-dap.nvim",
     dependencies = {
@@ -14,6 +15,8 @@ return {
       }
     end,
   },
+
+  -- Core DAP functionality
   {
     "mfussenegger/nvim-dap",
     event = "VeryLazy",
@@ -21,17 +24,19 @@ return {
       { "<leader>dD", "", desc = "+debug", mode = { "n", "v" } },
     },
   },
+
+  -- Python-specific DAP configuration
   {
     "mfussenegger/nvim-dap-python",
     ft = "python",
-    dependencies = {
-      "mfussenegger/nvim-dap",
-    },
+    dependencies = { "mfussenegger/nvim-dap" },
     config = function()
-      local path = "~/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
-      require("dap-python").setup(path)
+      local debugpy_path = vim.fn.stdpath "data" .. "/mason/packages/debugpy/venv/bin/python"
+      require("dap-python").setup(debugpy_path)
     end,
   },
+
+  -- Virtual text for DAP
   {
     "theHamsta/nvim-dap-virtual-text",
     opts = {
@@ -48,36 +53,39 @@ return {
       },
     },
   },
+
+  -- DAP UI for enhanced debugging interface
   {
     "rcarriga/nvim-dap-ui",
-    dependencies = { "mfussenegger/nvim-dap", "nvim-neotest/nvim-nio" },
+    dependencies = {
+      "mfussenegger/nvim-dap",
+      "nvim-neotest/nvim-nio",
+    },
     keys = {
       {
         "<leader>du",
         function()
           require("dapui").toggle()
         end,
-        desc = "Dap UI",
+        desc = "Toggle DAP UI",
       },
       {
         "<leader>de",
         function()
           require("dapui").eval()
         end,
-        desc = "Eval",
+        desc = "Evaluate Expression",
         mode = { "n", "v" },
       },
-    },
-    opts = {
-      automatic_installation = true,
-      ensure_installed = { "delve", "js-debug-adapter", "debugpy" },
     },
     config = function(_, opts)
       local dap = require "dap"
       local dapui = require "dapui"
+
+      -- Setup DAP UI with provided options
       dapui.setup(opts)
 
-      -- Auto-open DAP UI on debug events
+      -- Auto-open and close DAP UI on debug events
       dap.listeners.after.event_initialized["dapui_config"] = function()
         dapui.open()
       end
@@ -88,12 +96,12 @@ return {
         dapui.close()
       end
 
-      -- Install golang specific config
+      -- Go-specific DAP configuration
       require("dap-go").setup {
         dap_configurations = {
           {
             type = "go",
-            name = "Attach remote",
+            name = "Attach Remote",
             mode = "remote",
             request = "attach",
           },
@@ -112,8 +120,9 @@ return {
         },
       }
 
-      -- Debugger adapters and configurations
-      -- Go (delve)
+      -- DAP adapters and configurations
+
+      -- Go (Delve)
       dap.adapters.delve = {
         type = "server",
         port = "${port}",
@@ -123,8 +132,19 @@ return {
         },
       }
       dap.configurations.go = {
-        { type = "delve", name = "Debug", request = "launch", program = "${file}" },
-        { type = "delve", name = "Debug Test", request = "launch", mode = "test", program = "${file}" },
+        {
+          type = "delve",
+          name = "Debug",
+          request = "launch",
+          program = "${file}",
+        },
+        {
+          type = "delve",
+          name = "Debug Test",
+          request = "launch",
+          mode = "test",
+          program = "${file}",
+        },
       }
 
       -- JavaScript/TypeScript (js-debug-adapter)
@@ -135,7 +155,7 @@ return {
         executable = {
           command = "node",
           args = {
-            os.getenv "HOME" .. "/.local/share/nvim/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
+            vim.fn.stdpath "data" .. "/mason/packages/js-debug-adapter/js-debug/src/dapDebugServer.js",
             9229,
           },
         },
@@ -168,7 +188,7 @@ return {
         {
           type = "python",
           request = "launch",
-          name = "Launch file",
+          name = "Launch File",
           program = "${file}",
           pythonPath = function()
             return os.getenv "VIRTUAL_ENV" and os.getenv "VIRTUAL_ENV" .. "/bin/python" or "python"
