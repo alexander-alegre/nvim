@@ -16,6 +16,7 @@ local servers = {
   "prismals",
   "pyright",
   "intelephense",
+  "bashls",
 }
 local nvlsp = require "nvchad.configs.lspconfig"
 
