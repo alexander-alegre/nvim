@@ -23,6 +23,8 @@ return {
         "js-debug-adapter",
         "debugpy",
         "bash-language-server",
+        "shellcheck",
+        "shfmt",
       },
     },
   },

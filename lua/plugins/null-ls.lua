@@ -17,6 +17,9 @@ return {
         -- Python diagnostics
         b.diagnostics.mypy,
         b.diagnostics.ruff,
+        -- shell
+        b.diagnostics.shellcheck,
+        b.formatting.shfmt,
       },
       on_attach = function(client, bufnr)
         if client.supports_method "textDocument/formatting" then
