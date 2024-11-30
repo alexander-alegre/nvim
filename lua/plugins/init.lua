@@ -89,4 +89,14 @@ return {
       "nvim-treesitter/nvim-treesitter",
     },
   },
+  {
+    "stevearc/dressing.nvim",
+    opts = {},
+    event = "VeryLazy",
+    config = function()
+      require("dressing").setup {
+        -- your custom config here (optional)
+      }
+    end,
+  },
 }
