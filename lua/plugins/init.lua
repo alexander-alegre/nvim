@@ -25,6 +25,7 @@ return {
         "bash-language-server",
         "shellcheck",
         "shfmt",
+        "clangd",
       },
     },
   },

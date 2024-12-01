@@ -17,6 +17,7 @@ local servers = {
   "pyright",
   "intelephense",
   "bashls",
+  "clangd",
 }
 local nvlsp = require "nvchad.configs.lspconfig"
 
