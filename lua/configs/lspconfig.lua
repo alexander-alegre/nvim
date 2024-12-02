@@ -55,6 +55,10 @@ lspconfig.tailwindcss.setup {
     tailwindCSS = {
       includeLanguages = {
         templ = "html",
+        javascript = "html", -- For .js files
+        javascriptreact = "html", -- For .jsx files
+        typescript = "html", -- For .ts files
+        typescriptreact = "html", -- For .tsx files
       },
     },
   },

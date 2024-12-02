@@ -82,6 +82,7 @@ return {
     local dapui = require "dapui"
 
     require("mason-nvim-dap").setup {
+      event = "VeryLazy",
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
       automatic_installation = true,
@@ -97,6 +98,7 @@ return {
         "delve",
         "js-debug-adapter",
         "debugpy",
+        "codelldb",
       },
     }
 
