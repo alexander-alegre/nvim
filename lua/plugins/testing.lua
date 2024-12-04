@@ -10,6 +10,7 @@ return {
 
       "nvim-neotest/neotest-plenary",
       "nvim-neotest/neotest-vim-test",
+      "haydenmeade/neotest-jest",
 
       {
         "fredrikaverpil/neotest-golang",
@@ -30,6 +31,12 @@ return {
           "-race",
           "-coverprofile=" .. vim.fn.getcwd() .. "/coverage.out",
         },
+      }
+      opts.adapters["neotest-jest"] = {
+        jestCommand = "npm test --",
+        cwd = function()
+          return vim.fn.getcwd()
+        end,
       }
     end,
     config = function(_, opts)
