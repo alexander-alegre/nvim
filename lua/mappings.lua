@@ -12,5 +12,6 @@ map(
   ':lua require("telescope.builtin").lsp_references()<CR>',
   { noremap = true, silent = true, desc = "Find usages" }
 )
+map("n", "<leader>dd", vim.lsp.buf.definition, { noremap = true, silent = true, desc = "Go to Definition" })
 
 -- map({ "n", "i", "v" }, "<C-s>", "<cmd> w <cr>")
