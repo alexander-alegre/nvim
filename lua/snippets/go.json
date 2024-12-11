@@ -16,8 +16,8 @@
 	"Print Res Body": {
 		"prefix": "prb",
 		"body": [
-			"buf, _ io.ReadAll(res.Body)",
-      "res.Body = io.NopCloser(string.NewReader(string(buf)))",
+			"buf, _ := io.ReadAll(res.Body)",
+      "res.Body = io.NopCloser(strings.NewReader(string(buf)))",
       "var iface any",
       "_ = json.Unmarshal(buf, &iface)",
       "buf, _ = json.MarshalIndent(iface, \"\", \" \")",
