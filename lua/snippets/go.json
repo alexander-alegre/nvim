@@ -1,0 +1,27 @@
+{
+	"Print Line": {
+		"prefix": "pl",
+		"body": [
+			"fmt.Println($1)"
+		]
+	},
+	"Handle Error": {
+		"prefix": "err",
+		"body": [
+			"if err != nil {",
+      "  $1",
+      "}"
+		]
+	},
+	"Print Res Body": {
+		"prefix": "prb",
+		"body": [
+			"buf, _ io.ReadAll(res.Body)",
+      "res.Body = io.NopCloser(string.NewReader(string(buf)))",
+      "var iface any",
+      "_ = json.Unmarshal(buf, &iface)",
+      "buf, _ = json.MarshalIndent(iface, \"\", \" \")",
+      "fmt.Println(string(buf))"
+		]
+	}
+}
