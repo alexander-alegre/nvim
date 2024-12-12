@@ -19,6 +19,7 @@ local servers = {
   "bashls",
   "clangd",
   "eslint",
+  "sourcekit",
 }
 local nvlsp = require "nvchad.configs.lspconfig"
 
@@ -160,5 +161,15 @@ lspconfig.eslint.setup {
     enable = true,
     report_unused_disable_directives = false,
     run_on = "type", -- or `save`
+  },
+}
+
+lspconfig.sourcekit.setup {
+  capabilities = {
+    workspace = {
+      didChangeWatchedFiles = {
+        dynamicRegistration = true,
+      },
+    },
   },
 }

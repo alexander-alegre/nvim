@@ -33,6 +33,7 @@ return {
           "templ",
           "dockerfile",
           "editorconfig",
+          "swift",
         },
         auto_install = true,
         sync_install = false,

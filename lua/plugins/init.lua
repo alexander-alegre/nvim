@@ -26,6 +26,7 @@ return {
         "shellcheck",
         "shfmt",
         "clangd",
+        "sourcekit-lsp",
       },
     },
   },
