@@ -19,4 +19,17 @@ return {
       vim.api.nvim_set_keymap("i", "<C-k>", "copilot#Previous()", { silent = true, expr = true })
     end,
   },
+  {
+    "CopilotC-Nvim/CopilotChat.nvim",
+    event = "VeryLazy",
+    dependencies = {
+      { "github/copilot.vim" }, -- Alternatively: { "zbirenbaum/copilot.lua" }
+      { "nvim-lua/plenary.nvim" }, -- Removed unnecessary branch specification
+    },
+    build = "make tiktoken", -- Only on MacOS or Linux
+    opts = {
+      -- Add any CopilotChat-specific configuration here
+    },
+    cmd = { "CopilotChat" }, -- Ensures lazy-loading when the command is used
+  },
 }
